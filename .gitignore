@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.log
+
+# Documentos del proyecto (no versionar)
+Avance #1 - Preguntas para el cliente.pdf
+Preguntas_PF_WEB3.m4a
+Resumen Preguntas PF WEB3.md
+Resumenes_reunion_combinados.md
+avance #1 - Preguntas para el cliente.docx
+resumen 1.docx
+resumen 2.docx
+resumen 3.docx
+resumen 4.docx
+resumen 5.docx
+Avance_1_-_Preguntas_para_el_cliente.md
