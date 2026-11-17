@@ -1,6 +1,6 @@
 # Diagnóstico del proyecto: plataforma de reservas de la bodega COCOA (USFQ)
 
-**Fecha:** 13 de noviembre de 2026
+**Fecha:** 11 de noviembre de 2026
 **Base para:** Primer avance del prototipo (2 de diciembre de 2026)
 
 ## 0. Contexto y fuentes
@@ -11,10 +11,10 @@ La bodega de equipos del COCOA quiere reemplazar su sistema actual de reservas, 
 
 | Rango | Fuente | Contenido |
 | --- | --- | --- |
-| 1 | `Resumen Preguntas PF WEB3.md` | Reunión de requisitos del 13 nov 2026. Es la fuente más reciente y detallada. |
+| 1 | `Resumen Preguntas PF WEB3.md` | Reunión de requisitos del 11 nov 2026. Es la fuente más reciente y detallada. |
 | 2 | `Resumenes_reunion_combinados.md` | Cinco resúmenes automáticos de la primera reunión (Zoom). |
-| 3 | `Avance_1_-__Preguntas_para_el_cliente.md` | Supuestos y preguntas del equipo antes de la reunión del 13 nov. |
-| — | Sitio público de EZRentOut | Revisado el 13 nov 2026, solo las páginas que no piden sesión. |
+| 3 | `Avance_1_-__Preguntas_para_el_cliente.md` | Supuestos y preguntas del equipo antes de la reunión del 11 nov. |
+| — | Sitio público de EZRentOut | Revisado el 11 nov 2026, solo las páginas que no piden sesión. |
 
 **Etiquetas usadas en la sección 1:**
 - **[V] verificado:** se vio en una página pública.
@@ -35,7 +35,7 @@ No se pudo revisar nada que requiera sesión: el calendario y los selectores de 
 | Hay 20 categorías, entre ellas "Uncategorized" y "Sala MS-204". "Interactividad" aparece como categoría y también como subcategoría, y existe además "Medios interactivos". La taxonomía está desordenada. | [V] |
 | Las categorías no muestran cuántos ítems tienen. Se puede ordenar A-Z, Z-A o por fecha. Hay un filtro de disponibilidad por rango de fechas. | [V] |
 | Las pestañas "Rent" y "Buy" no aplican, porque nada se vende. | [V] |
-| No se muestran precios en el catálogo. Los kits avisan que el precio de cada ítem se ve en el carrito. | [V] |
+| No se muestran precios en el catálogo. Los kits avisan que el precio de cada ítem se ve en el carrito, aunque el préstamo no tiene costo para el estudiante. | [V] |
 | Cada tarjeta muestra: foto, nombre, número de ítem, "Available: N", ubicación, descripción truncada, campos "From/To", cantidad y "Add to Cart". | [V] |
 | Hay descripciones duplicadas. Por ejemplo, las editoras 1 a 13 tienen el mismo texto. | [V] |
 | No hay estado de mantenimiento visible. Solo se ve "Available: N", "In Stock: N" o "Out of Stock". | [V] |
@@ -51,7 +51,7 @@ No se pudo revisar nada que requiera sesión: el calendario y los selectores de 
 | La página no indica si los componentes de un kit también se pueden rentar sueltos, ni si reservar un kit los bloquea. | [NV] |
 | Hay inconsistencias en los datos. El Estudio de TV dice "3 cámaras Sony Z1", pero su lista de componentes trae 2 Sony PXW-Z150. Además, el primer componente del kit es el propio kit. | [V] |
 | Los espacios están modelados como kits: Estudio de TV (ubicación "3 - Estudio TV"), Estudio Podcast ("1 - Bodega") y H104, "sala de cine" ("5 - H104"). También existen las categorías "Sala MS-204" y "Salas de Proyección". El cliente habla de unos 7 espacios reservables. | [V] |
-| Las editoras 1 a 13 son ítems separados. Eso encaja con el modelo "cada computadora como unidad" pedido el 13 nov. | [V] |
+| Las editoras 1 a 13 son ítems separados. Eso encaja con el modelo "cada computadora como unidad" pedido el 11 nov. | [V] |
 | Existe la opción "Change Store Location", con el aviso: "Switching stores will clear your current cart". | [V] |
 
 ### 1.3 Cuentas y acceso
@@ -69,7 +69,7 @@ No se pudo revisar nada que requiera sesión: el calendario y los selectores de 
 | --- | --- |
 | Hay un filtro de disponibilidad por defecto de unos 7 días. Los parámetros de la URL usan formato de 24 h. | [V] (solo URL) |
 | Formato de hora en la interfaz (AM/PM) e intervalos del selector. Los resúmenes reportan confusión AM/PM. | [NV] |
-| Mensaje que se muestra al finalizar el checkout. El 13 nov se dijo que hoy los estudiantes creen que la reserva ya quedó aprobada. | [NV] |
+| Mensaje que se muestra al finalizar el checkout. El 11 nov se dijo que hoy los estudiantes creen que la reserva ya quedó aprobada. | [NV] |
 | No existen páginas de políticas, horario, cancelación, devoluciones ni FAQ. | [V] |
 | El contacto es un teléfono con extensión y un **Gmail** de la bodega, no un correo institucional. | [V] |
 | La interfaz mezcla español e inglés ("Sign In", "Add to Cart", "Check Availability") y no tiene selector de idioma. | [V] |
@@ -87,7 +87,7 @@ No se pudo comprobar sin sesión. Para el sistema nuevo, el aprendizaje es elegi
 
 ---
 
-## 2. Matriz de brechas (requisitos del 13 nov frente al sistema actual)
+## 2. Matriz de brechas (requisitos del 11 nov frente al sistema actual)
 
 **Leyenda:** ✅ lo cubre hoy · ⚠️ lo cubre en parte · ❌ no lo cubre · ? no verificado.
 
@@ -98,7 +98,7 @@ No se pudo comprobar sin sesión. Para el sistema nuevo, el aprendizaje es elegi
 | Dos roles: admin y estudiante. Los profesores se atienden con una reserva del admin más una nota. | ? | Solo dos roles. La reserva hecha por el admin debe tener un campo de nota que diga el profesor y la clase. |
 | Dos administradores: Santiago y su jefe. | ? | Dos cuentas admin con los mismos permisos (supuesto). |
 | Solo el admin crea cuentas y no hay registro abierto. | ⚠️ No se ve registro, pero se puede entrar con Google. | No habrá registro público. El admin crea la cuenta y el sistema envía un correo de invitación al correo institucional, donde el estudiante establece su propia clave (ver 4.1). |
-| Solo correo institucional. El lado de usuarios es exclusivo para estudiantes `@estud.usfq.edu.ec`. Los profesores no tienen cuenta; el admin gestiona sus reservas desde la cuenta administrativa. | ❌ Se acepta Gmail. | Lista blanca de dominios, validada al crear la cuenta y al establecer la clave: `@estud.usfq.edu.ec` para estudiantes y `@usfq.edu.ec` solo para admin. Sin login con Google. Aclarado por el equipo después del 13 nov (ver 4.1). |
+| Solo correo institucional. El lado de usuarios es exclusivo para estudiantes `@estud.usfq.edu.ec`. Los profesores no tienen cuenta; el admin gestiona sus reservas desde la cuenta administrativa. | ❌ Se acepta Gmail. | Lista blanca de dominios, validada al crear la cuenta y al establecer la clave: `@estud.usfq.edu.ec` para estudiantes y `@usfq.edu.ec` solo para admin. Sin login con Google. Aclarado por el equipo después del 11 nov (ver 4.1). |
 | El admin evalúa con el perfil: semestre, historial y nivel de uso. | ? | El perfil debe tener semestre, historial de reservas y nivel de uso. |
 | Historial de incidencias y score rápido. | ? | Tabla de incidencias (bloqueo, daño, multa, entrega tardía) y un score calculado. La fórmula está pendiente (ver 5). |
 | El admin puede bloquear cuentas. Hoy: un día tarde equivale a 2 semanas sin sistema. | ? | Bloqueo con fecha de fin. Falta definir si es manual o automático. |
@@ -209,7 +209,7 @@ Stack propuesto en la reunión: Supabase (base de datos, auth, storage y funcion
 
 ### 4.1 Login con correo institucional (invitación del admin)
 
-**Flujo definido por el equipo (aclaración posterior al 13 nov):**
+**Flujo definido por el equipo (aclaración posterior al 11 nov):**
 1. El admin crea la cuenta con el correo institucional del estudiante.
 2. El sistema envía un correo de invitación a ese correo.
 3. El estudiante abre el enlace y establece su propia clave.
@@ -262,7 +262,7 @@ Los recordatorios de T−10 min, el aviso de vencimiento + 30 min y el resumen d
 - **Imágenes:** Supabase Storage. Con 270 productos y 1 o 2 fotos cada uno, el volumen es bajo.
 - **Carga inicial:** script que importe el Excel del cliente. La estructura actual (productos, kits con componentes y ubicaciones) sirve como referencia.
 
-### 4.6 Costos estimados (consultados el 13 nov 2026)
+### 4.6 Costos estimados (consultados el 11 nov 2026)
 
 | Servicio | Plan | USD/mes | Nota |
 | --- | --- | --- | --- |
@@ -297,7 +297,7 @@ Los precios cambian a menudo; conviene confirmarlos en las páginas oficiales an
 | --- | --- | --- | --- |
 | R1 | Las invitaciones a cuentas institucionales caen en spam o las bloquea el filtro de correo de la USFQ. También pueden existir dominios institucionales que no conocemos. | Medio: sin invitación no hay acceso, pero el riesgo baja mucho si el remitente está asociado a la USFQ. | Enviar desde un servicio o subdominio asociado a la USFQ. Si no se consigue, usar un dominio propio verificado (SPF y DKIM) y probar una invitación real a una cuenta `@estud.usfq.edu.ec`. Confirmar los dominios con el cliente (P13). |
 | R2 | El Excel del catálogo llega tarde o incompleto. Se prometió para el lunes 16 nov. | Alto: sin catálogo real no hay demo creíble. | Pedirlo con un formato de columnas sugerido. Si no llega, usar datos de muestra tomados del sitio público. |
-| R3 | No hay imágenes propias: el 13 nov se dijo que hoy se buscan en Google. | Medio. | Exportarlas del sistema actual. Si no se puede, usar imágenes de referencia. |
+| R3 | No hay imágenes propias: el 11 nov se dijo que hoy se buscan en Google. | Medio. | Exportarlas del sistema actual. Si no se puede, usar imágenes de referencia. |
 | R4 | El modelo de disponibilidad con kits, espacios y estaciones es más complejo de lo que parece. | Alto. | Cerrar las reglas (preguntas P1 y P2) antes de diseñar la base de datos. |
 | R5 | Los correos de reservas no llegan (spam) si no hay un remitente confiable. | Alto: es el problema actual. | Remitente asociado a la USFQ (preferido) o dominio propio con SPF y DKIM desde el prototipo. |
 | R6 | Los datos actuales tienen errores: descripciones duplicadas, componentes que no coinciden y taxonomía desordenada. | Medio. | Limpiar los datos al importarlos y validarlos con el cliente. |
@@ -329,27 +329,27 @@ Los precios cambian a menudo; conviene confirmarlos en las páginas oficiales an
 - Si TI puede dar un subdominio o remitente asociado a la USFQ para el correo (opción preferida, 4.2) y para el hosting, o si se compra un dominio propio.
 - Presupuesto: quién paga los servicios y a nombre de quién quedan las cuentas. En la reunión se dijo que "se conversa según el costo"; la sección 4.6 sirve de insumo.
 
-### 5.4 Correcciones al Avance 1 a la luz del 13 nov
+### 5.4 Correcciones al Avance 1 a la luz del 11 nov
 
-| Supuesto o elemento del Avance 1 | Estado tras el 13 nov |
+| Supuesto o elemento del Avance 1 | Estado tras el 11 nov |
 | --- | --- |
 | La plataforma estará solo en español. | **Invalidado:** español por defecto, con opción en inglés. |
 | Las unidades repetidas se muestran como cantidad disponible. | **Invalidado:** selector de unidad, como tallas. |
-| La contraseña es la del correo institucional. | **Invalidado:** el estudiante establece su propia clave desde la invitación que recibe en su correo institucional (aclaración del equipo posterior al 13 nov). |
+| La contraseña es la del correo institucional. | **Invalidado:** el estudiante establece su propia clave desde la invitación que recibe en su correo institucional (aclaración del equipo posterior al 11 nov). |
 | El horario se bloquea solo al aprobar. | **Confirmado.** |
 | Las reservas tienen varios ítems. | **Confirmado.** |
-| El préstamo es gratuito. | Sigue como **supuesto**. Ninguna fuente menciona cobros y el sitio actual no muestra precios. Conviene confirmarlo. |
-| El costo de hosting es de 150 USD al mes (se supuso que "1,50" era un error de tipeo). | La reunión del 13 nov habló de unos 20 USD para Supabase; la estimación actual es de unos 53 USD al mes (4.6). |
-| Sección 5 del Avance 1. | La pregunta 4 aparece dos veces (ítems 1 y 4) y las etiquetas "(Pregunta N)" no coinciden con la numeración de la sección 4. Las preguntas ya fueron respondidas el 13 nov. |
+| El préstamo es gratuito. | **Confirmado:** reservar equipos o espacios de la bodega no tiene costo. El sistema no maneja precios ni cobros. |
+| El costo de hosting es de 150 USD al mes (se supuso que "1,50" era un error de tipeo). | La reunión del 11 nov habló de unos 20 USD para Supabase; la estimación actual es de unos 53 USD al mes (4.6). |
+| Sección 5 del Avance 1. | La pregunta 4 aparece dos veces (ítems 1 y 4) y las etiquetas "(Pregunta N)" no coinciden con la numeración de la sección 4. Las preguntas ya fueron respondidas el 11 nov. |
 
 ### 5.5 Diferencias entre fuentes que siguen abiertas
 
-| Tema | Resúmenes de la primera reunión | Reunión del 13 nov | Lectura |
+| Tema | Resúmenes de la primera reunión | Reunión del 11 nov | Lectura |
 | --- | --- | --- | --- |
 | Fotos | Santiago tiene 1 o 2 fotos por equipo en el Excel. | Hoy se buscan en Google; revisará si puede exportarlas. | **Discrepancia real.** No está claro que existan fotos propias (R3). |
-| Costo mensual | ~150 USD | ~20 USD (Supabase) | Manda el 13 nov, corregido con el precio actual (4.6). |
-| Horarios | Horario global y horarios por equipo. | Horario de bodega más la excepción de las computadoras de edición. | Son compatibles; el 13 nov concreta los valores. |
-| Rechazo | Se notifica al estudiante. | Se notifica sin razón. | Son compatibles; el 13 nov agrega detalle. |
+| Costo mensual | ~150 USD | ~20 USD (Supabase) | Manda el 11 nov, corregido con el precio actual (4.6). |
+| Horarios | Horario global y horarios por equipo. | Horario de bodega más la excepción de las computadoras de edición. | Son compatibles; el 11 nov concreta los valores. |
+| Rechazo | Se notifica al estudiante. | Se notifica sin razón. | Son compatibles; el 11 nov agrega detalle. |
 
 ---
 
