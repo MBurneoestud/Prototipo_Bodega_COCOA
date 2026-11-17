@@ -97,10 +97,10 @@ No se pudo comprobar sin sesión. Para el sistema nuevo, el aprendizaje es elegi
 | --- | --- | --- |
 | Dos roles: admin y estudiante. Los profesores se atienden con una reserva del admin más una nota. | ? | Solo dos roles. La reserva hecha por el admin debe tener un campo de nota que diga el profesor y la clase. |
 | Dos administradores: Santiago y su jefe. | ? | Dos cuentas admin con los mismos permisos (supuesto). |
-| Solo el admin crea cuentas y no hay registro abierto. | ⚠️ No se ve registro, pero se puede entrar con Google. | No habrá registro público. El admin crea la cuenta y el sistema envía un correo de invitación al correo institucional, donde el estudiante establece su propia clave (ver 4.1). |
+| Solo el admin crea cuentas y no hay registro abierto. | ⚠️ No se ve registro, pero se puede entrar con Google. | No habrá registro público. El cliente prefiere que el estudiante entre con la clave de su correo institucional (login con Microsoft), y el equipo quedó en confirmar si es viable. Si no lo es, el cliente aceptó esta alternativa: el admin crea la cuenta y el sistema envía una invitación al correo institucional, donde el estudiante establece su propia clave (ver 4.1). |
 | Solo correo institucional. El lado de usuarios es exclusivo para estudiantes `@estud.usfq.edu.ec`. Los profesores no tienen cuenta; el admin gestiona sus reservas desde la cuenta administrativa. | ❌ Se acepta Gmail. | Lista blanca de dominios, validada al crear la cuenta y al establecer la clave: `@estud.usfq.edu.ec` para estudiantes y `@usfq.edu.ec` solo para admin. Sin login con Google. Aclarado por el equipo después del 11 nov (ver 4.1). |
 | El admin evalúa con el perfil: semestre, historial y nivel de uso. | ? | El perfil debe tener semestre, historial de reservas y nivel de uso. |
-| Historial de incidencias y score rápido. | ? | Tabla de incidencias (bloqueo, daño, multa, entrega tardía) y un score calculado. La fórmula está pendiente (ver 5). |
+| Historial de incidencias y score rápido. | ? | El cliente quiere combinar las dos cosas: una tabla de incidencias (bloqueo, daño, multa, entrega tardía) visible para el admin y un score rápido para no revisar todo. La fórmula está pendiente (ver 5). |
 | El admin puede bloquear cuentas. Hoy: un día tarde equivale a 2 semanas sin sistema. | ? | Bloqueo con fecha de fin. Falta definir si es manual o automático. |
 
 ### 2.2 Reservas y carrito
@@ -110,13 +110,13 @@ No se pudo comprobar sin sesión. Para el sistema nuevo, el aprendizaje es elegi
 | Una reserva con varios ítems, como un carrito de Amazon. | ❌ El carrito se borra. | Una reserva con N líneas, todas con el mismo rango de fechas. |
 | Flujo: calendario → catálogo filtrado por disponibilidad → reserva → correo al admin → correo de aprobación. | ⚠️ Hay filtro de fechas, pero las fechas van por ítem. | Las fechas se eligen primero y el catálogo muestra solo lo disponible en ese rango. |
 | Aprobación de la reserva completa. | ? | Estados de reserva: pendiente → aprobada o rechazada → retirada → devuelta, o cancelada o no retirada. |
-| El admin puede modificar el carrito, por ejemplo cambiar una unidad por otra. | ? | Edición de las líneas por el admin antes de aprobar, validando la disponibilidad. |
+| El admin debe poder modificar todo el carrito, por ejemplo cambiar Oculus 1 por Oculus 2 si hay choque, o quitar un ítem que no cuadra. | ? | El admin puede agregar, quitar o cambiar líneas, y cambiar fechas y notas, validando la disponibilidad. Si dos solicitudes piden lo mismo, aprueba la primera y ofrece otra unidad a la segunda. |
 | Sin tiempo máximo por equipo; máximo un semestre. | ? | Validar que la reserva no pase de un semestre (se necesita la fecha de fin del semestre). |
 | Nota opcional del estudiante y del admin. | ? | Campos de nota en la reserva. |
 | Sin anticipación mínima y sin límite de reservas. | ? | No se valida ni la anticipación ni la cantidad de reservas. |
 | El equipo sigue disponible hasta que se aprueba. | ? | Las solicitudes pendientes no bloquean. Al aprobar se valida que no haya choque, y el admin ve los conflictos. |
 | El carrito dura abierto unas 1 h (respuesta poco clara). | ? | Pendiente de confirmar (ver 5). |
-| El checkout dice "en proceso; espera el correo de aprobación". | ❌ Hoy los estudiantes creen que ya está aprobada. | Mensaje y correo explícitos de "solicitud recibida, pendiente de aprobación". |
+| El checkout dice que la orden está siendo procesada y que espere el correo de aprobación. | ❌ Hoy los estudiantes creen que ya está aprobada. | Mensaje explícito: "Tu solicitud está siendo procesada. Espera el correo de aprobación." |
 | Cancelación hasta 1 h antes y políticas visibles. | ❌ No hay políticas. | Página o modal de políticas, y botón de cancelar que deja de funcionar a T−1 h. |
 | No retiro: se espera de 15 a 30 min y luego se libera; la cancelación la hace el admin a mano. | ? | Acción "marcar como no retirada" para el admin. Sin cancelación automática. |
 | El rechazo se notifica sin dar razón. | ? | Correo de rechazo sin campo de motivo. |
@@ -137,7 +137,7 @@ No se pudo comprobar sin sesión. Para el sistema nuevo, el aprendizaje es elegi
 | Varias unidades iguales: se agrega cada una al carrito. | ❌ | Agregar una unidad a la vez desde el selector. |
 | Kits con nombre específico, que el admin puede crear, editar y separar. | ⚠️ Los kits tienen nombre y componentes, pero los datos son inconsistentes. | Kit = conjunto de unidades. Hace falta un CRUD de kits y definir si un kit bloquea a sus componentes (ver 5). |
 | El admin tiene CRUD del catálogo. | ? | Panel de catálogo (productos, unidades, kits y espacios). |
-| Imágenes: hoy salen de Google; el cliente revisará si puede exportarlas. | ⚠️ Hay fotos en el sistema actual. | Almacenamiento de imágenes (1 o 2 por producto) y plan B si no se pueden exportar. |
+| Imágenes: hoy salen de Google; el cliente revisará si puede exportarlas. | ⚠️ Hay fotos en el sistema actual, pero no son propias. | Almacenamiento de imágenes (hasta 2 por producto) y plan B si no se pueden exportar. |
 | Laboratorios: cada computadora es una unidad y el espacio completo se reserva aparte. Hay unos 7 espacios; algunos solo para profesores y admin. | ⚠️ Hoy son kits y categorías. | Tipo "espacio" con bandera "solo admin". Hay que definir si reservar el espacio bloquea sus estaciones. |
 
 ### 2.5 Estados y mantenimiento
@@ -152,7 +152,7 @@ No se pudo comprobar sin sesión. Para el sistema nuevo, el aprendizaje es elegi
 
 | Requisito | Hoy | Brecha o acción |
 | --- | --- | --- |
-| Al admin: nueva reserva y solicitud de cancelación. Al estudiante: aprobación o rechazo. | ⚠️ Al admin le llegan; a muchos estudiantes no. | Proveedor de correo confiable con dominio verificado (ver 4.2). |
+| Al admin: nueva reserva, aprobación y solicitud de cancelación (como hoy). Al estudiante: aprobación o rechazo. | ⚠️ Al admin le llegan todos; a muchos estudiantes no les llega el de aprobación. | Proveedor de correo confiable con dominio verificado (ver 4.2). |
 | Recordatorio 10 min antes del inicio y aviso desde 30 min después del vencimiento. Sin renovación. | ? | Tareas programadas (ver 4.3). |
 | Resumen diario al admin, que incluya los equipos en mantenimiento. | ❌ Hoy revisa unas diez veces al día. | Correo diario programado. |
 | Excel y PDF por reserva para seguridad. | ? | Generar el PDF y el Excel de cada reserva aprobada. |
@@ -165,9 +165,9 @@ No se pudo comprobar sin sesión. Para el sistema nuevo, el aprendizaje es elegi
 | Requisito | Hoy | Brecha o acción |
 | --- | --- | --- |
 | Diseño desde cero en negro, rojo y blanco, con el logo COCOA. | ❌ | Falta el logo (pendiente del cliente). |
-| Español por defecto y opción en inglés. | ❌ Mezcla de idiomas. | i18n completo. Falta definir el alcance (ver 5). |
+| Español por defecto y opción en inglés para estudiantes de intercambio. | ❌ Mezcla de idiomas. | i18n completo. Falta definir el alcance (ver 5). |
 | Responsive con prioridad en celular, también para que el admin apruebe. Tablet en segundo plano. | ? | Diseño mobile-first, panel admin incluido. |
-| Chatbot o WhatsApp: opcional, no para diciembre. | ❌ | Fuera del prototipo. |
+| Chatbot o WhatsApp: opcional ("si lo logras, hermoso"), no prioritario para el prototipo de diciembre. | ❌ | Fuera del prototipo. |
 | Hosting libre, sin lineamientos de TI. Propuesta: Render y Supabase. | — | Ver 4. |
 
 ---
@@ -178,11 +178,11 @@ La columna "2 dic" marca lo que se propone entregar en el primer avance.
 
 | Prioridad | Requisito | 2 dic |
 | --- | --- | --- |
-| **Must** | Login con correo institucional y clave propia, sin registro público. Estudiantes solo con `@estud.usfq.edu.ec`; admin con `@usfq.edu.ec`. | ✅ |
-| **Must** | El admin crea cuentas una a una (con invitación por correo para establecer la clave), las da de baja y las bloquea. | ✅ |
+| **Must** | Login solo con correo institucional, sin registro público. Estudiantes solo con `@estud.usfq.edu.ec`; admin con `@usfq.edu.ec`. | ✅ |
+| **Must** | Evaluar el login con la clave del correo institucional (conector de Microsoft en Supabase), que es la opción preferida del cliente. Si es viable, se usa. | ✅ (evaluación) |
+| **Must** | El admin crea cuentas una a una, las da de baja y las bloquea. Si no se usa Microsoft, la creación envía una invitación por correo para establecer la clave (alternativa aceptada por el cliente). | ✅ |
 | **Should** | Carga masiva de cuentas desde una lista (Excel o CSV), con invitaciones enviadas por lotes. | Después |
 | **Could** | Vista previa del lado usuario para el admin, para revisar cómo queda el catálogo después de cada cambio. | Después |
-| **Could** | Login con Microsoft como opción adicional. | Después |
 | **Must** | Catálogo con productos, unidades seleccionables, kits y espacios, más los estados visibles. | ✅ |
 | **Must** | Flujo: fechas → catálogo disponible → carrito multi-ítem → solicitud → "pendiente de aprobación". | ✅ |
 | **Must** | Validación de horario (8:30–17:20, franjas de 30 min, 24 h, separación de 30 min, fines de semana y feriados). | ✅ |
@@ -195,9 +195,9 @@ La columna "2 dic" marca lo que se propone entregar en el primer avance.
 | **Should** | Perfil del estudiante con semestre, historial e incidencias. | Parcial |
 | **Should** | PDF y Excel por reserva, y correo a seguridad. | Parcial |
 | **Should** | Recordatorios (T−10 min y vencimiento + 30 min) y resumen diario. | Después |
-| **Should** | Interfaz en inglés. | Después |
-| **Could** | Score automático del estudiante. | Después |
-| **Could** | Reporte semestral de los equipos más rentados. | Después |
+| **Should** | Interfaz en inglés, para estudiantes de intercambio. | Después |
+| **Should** | Score rápido del estudiante, junto al historial de incidencias. | Después |
+| **Should** | Reporte semestral de los equipos más rentados. | Después |
 | **Could** | Chatbot o bot de WhatsApp. | No |
 | **Won't (v1)** | Integración con el sistema de seguridad, y gestión de daños, multas y repuestos. | No |
 
@@ -207,9 +207,11 @@ La columna "2 dic" marca lo que se propone entregar en el primer avance.
 
 Stack propuesto en la reunión: Supabase (base de datos, auth, storage y funciones) más Render (hosting).
 
-### 4.1 Login con correo institucional (invitación del admin)
+### 4.1 Login con correo institucional
 
-**Flujo definido por el equipo (aclaración posterior al 11 nov):**
+**Preferencia del cliente (11 nov):** que la clave sea la del correo institucional ("sería ideal"). Para eso se usaría el conector de Microsoft (Azure) de Supabase, restringido al tenant de la USFQ. El equipo quedó en confirmar si es viable (ver "Login con Microsoft" al final de esta sección).
+
+**Alternativa aceptada por el cliente si Microsoft no es viable** (invitación del admin):
 1. El admin crea la cuenta con el correo institucional del estudiante.
 2. El sistema envía un correo de invitación a ese correo.
 3. El estudiante abre el enlace y establece su propia clave.
@@ -230,11 +232,11 @@ Stack propuesto en la reunión: Supabase (base de datos, auth, storage y funcion
 - **Registro público desactivado** en Supabase ("Allow new users to sign up" apagado). Solo el admin puede crear usuarios, con `auth.admin.inviteUserByEmail` desde una función con service role.
 - **El dominio decide el rol:** `@estud.usfq.edu.ec` solo puede ser estudiante y `@usfq.edu.ec` solo puede ser admin. No se crean cuentas de estudiante con `@usfq.edu.ec`.
 
-**Viabilidad:** alta. Supabase incluye invitación, establecimiento de clave y recuperación por correo. Este esquema no depende de TI ni del tenant de Microsoft.
+**Viabilidad de la alternativa:** alta. Supabase incluye invitación, establecimiento de clave y recuperación por correo. Este esquema no depende de TI ni del tenant de Microsoft, por eso sirve de respaldo.
 
 **Implicación para el correo:** cada cuenta nueva genera un correo de invitación. La carga masiva es Should y no es necesaria para el prototipo de diciembre. En producción, una carga al inicio del semestre puede chocar con el límite de correos de auth de Supabase (30 por hora por defecto con SMTP propio, configurable) y con el límite diario del proveedor, así que las invitaciones deben enviarse en una cola o por lotes (ver 4.2). Ya se sabe que producción requiere servicios pagados de correo y de cuentas. El prototipo se demuestra dentro de los límites de los planes gratuitos.
 
-**Login con Microsoft:** pasa a ser opcional (Could). Si se agrega después, se puede restringir al tenant de la USFQ con el campo "Azure Tenant URL" del proveedor Azure de Supabase, pero eso requiere el tenant ID y posiblemente el consentimiento de TI.
+**Login con Microsoft (opción preferida del cliente):** se puede restringir al tenant de la USFQ con el campo "Azure Tenant URL" del proveedor Azure de Supabase. Requiere el tenant ID y posiblemente el consentimiento de TI para apps de terceros. Aun con Microsoft, el admin sigue creando las cuentas: el sistema solo deja entrar a correos que el admin dio de alta, y la lista blanca de dominios se aplica igual. Es lo primero que hay que confirmar (sección 6).
 
 ### 4.2 Correo transaccional
 
@@ -309,7 +311,7 @@ Los precios cambian a menudo; conviene confirmarlos en las páginas oficiales an
 | --- | --- | --- | --- |
 | P1 | Alta | Si un estudiante reserva un kit, ¿sus componentes quedan bloqueados para quien los quiera sueltos, y al revés? ¿Los componentes de un kit se pueden rentar por separado? | Define el modelo de disponibilidad (R4). Hoy esto es el "lío" de los kits. |
 | P2 | Alta | Si se reserva un espacio completo (por ejemplo, el laboratorio), ¿se bloquean sus estaciones, y al revés? ¿Cuáles son los 7 espacios y cuáles son solo para profesores y admin? | Mismo motivo. La lista llegará en el Excel. |
-| P3 | Alta | ¿Los equipos de menos de 500 USD que no van numerados se manejan por cantidad o también por unidad? | Define si el sistema necesita dos modelos de inventario. |
+| P3 | Alta | ¿Los equipos de menos de 500 USD que no van numerados se manejan por cantidad o también por unidad? | Define si el sistema necesita dos modelos de inventario. El 11 nov el cliente quedó en marcar en el Excel qué equipos van numerados. |
 | P4 | Media | ¿Cuántos estudiantes usan el servicio por semestre? ¿De dónde sale el semestre del estudiante? | Dimensiona la carga masiva (Should, no entra al prototipo) y el volumen de correos, y define el perfil. |
 | P5 | Media | ¿Cuánto tiempo queda abierto el carrito? La respuesta "una hora" no se entendió bien. ¿Qué pasa al vencer? | Comportamiento del carrito. |
 | P6 | Media | El bloqueo por devolución tardía (un día tarde = 2 semanas), ¿lo aplica el sistema solo o usted? ¿Qué debería pesar en el score? | Define la automatización y la fórmula. |
@@ -325,7 +327,7 @@ Los precios cambian a menudo; conviene confirmarlos en las páginas oficiales an
 
 - Si existen otros dominios institucionales de la USFQ además de `@estud.usfq.edu.ec` y `@usfq.edu.ec` (P13).
 - Si los correos de invitación llegan al buzón institucional sin caer en spam (R1).
-- Solo si más adelante se agrega login con Microsoft: el tenant ID de la USFQ y si la universidad permite el consentimiento de apps de terceros.
+- Para el login con Microsoft (opción preferida del cliente): el tenant ID de la USFQ y si la universidad permite el consentimiento de apps de terceros.
 - Si TI puede dar un subdominio o remitente asociado a la USFQ para el correo (opción preferida, 4.2) y para el hosting, o si se compra un dominio propio.
 - Presupuesto: quién paga los servicios y a nombre de quién quedan las cuentas. En la reunión se dijo que "se conversa según el costo"; la sección 4.6 sirve de insumo.
 
@@ -335,7 +337,7 @@ Los precios cambian a menudo; conviene confirmarlos en las páginas oficiales an
 | --- | --- |
 | La plataforma estará solo en español. | **Invalidado:** español por defecto, con opción en inglés. |
 | Las unidades repetidas se muestran como cantidad disponible. | **Invalidado:** selector de unidad, como tallas. |
-| La contraseña es la del correo institucional. | **Invalidado:** el estudiante establece su propia clave desde la invitación que recibe en su correo institucional (aclaración del equipo posterior al 11 nov). |
+| La contraseña es la del correo institucional. | **Confirmado como preferencia:** el cliente dijo que "sería ideal". Depende de que el login con Microsoft sea viable. Si no lo es, el cliente aceptó que el estudiante establezca su propia clave desde una invitación a su correo institucional. |
 | El horario se bloquea solo al aprobar. | **Confirmado.** |
 | Las reservas tienen varios ítems. | **Confirmado.** |
 | El préstamo es gratuito. | **Confirmado:** reservar equipos o espacios de la bodega no tiene costo. El sistema no maneja precios ni cobros. |
@@ -346,7 +348,7 @@ Los precios cambian a menudo; conviene confirmarlos en las páginas oficiales an
 
 | Tema | Resúmenes de la primera reunión | Reunión del 11 nov | Lectura |
 | --- | --- | --- | --- |
-| Fotos | Santiago tiene 1 o 2 fotos por equipo en el Excel. | Hoy se buscan en Google; revisará si puede exportarlas. | **Discrepancia real.** No está claro que existan fotos propias (R3). |
+| Fotos | Santiago tiene 1 o 2 fotos por equipo en el Excel. | Hoy se buscan en Google; revisará si puede exportarlas. | **Manda el 11 nov:** no hay fotos propias. Se intentan exportar del sistema actual (R3). |
 | Costo mensual | ~150 USD | ~20 USD (Supabase) | Manda el 11 nov, corregido con el precio actual (4.6). |
 | Horarios | Horario global y horarios por equipo. | Horario de bodega más la excepción de las computadoras de edición. | Son compatibles; el 11 nov concreta los valores. |
 | Rechazo | Se notifica al estudiante. | Se notifica sin razón. | Son compatibles; el 11 nov agrega detalle. |
@@ -355,7 +357,7 @@ Los precios cambian a menudo; conviene confirmarlos en las páginas oficiales an
 
 ## 6. Próximos pasos
 
-1. **Esta semana:** probar el flujo de invitación de Supabase con un SMTP propio, enviando una invitación real a una cuenta `@estud.usfq.edu.ec`. Verificar que llegue a la bandeja de entrada y que se rechacen los dominios fuera de la lista blanca y las cuentas de estudiante con `@usfq.edu.ec` (R1). En paralelo, consultar si se puede enviar desde un remitente asociado a la USFQ.
+1. **Esta semana:** confirmar si el login con Microsoft restringido a la USFQ es viable (acuerdo del 11 nov), porque es la opción preferida del cliente. En paralelo, probar el flujo de invitación de Supabase como respaldo con un SMTP propio, enviando una invitación real a una cuenta `@estud.usfq.edu.ec`. Verificar que llegue a la bandeja de entrada y que se rechacen los dominios fuera de la lista blanca y las cuentas de estudiante con `@usfq.edu.ec` (R1). En paralelo, consultar si se puede enviar desde un remitente asociado a la USFQ.
 2. **Esta semana:** enviar a Santiago las preguntas P1 a P4 y P13 y un formato sugerido de columnas para el Excel. Columnas propuestas: producto, unidad o número de serie, categoría, kit al que pertenece, ubicación, valor (para marcar los de más de 500 USD), solo admin y foto.
 3. **Al recibir el Excel:** diseñar el modelo de datos (producto, unidad, kit, espacio, reserva, línea de reserva, incidencia y perfil) con las reglas que resulten de P1 a P3.
 4. **Antes del 2 dic:** construir los requisitos Must de la sección 3 sobre los planes gratuitos de Supabase, Render y Resend, con un dominio verificado.
