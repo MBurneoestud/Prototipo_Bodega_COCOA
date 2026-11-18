@@ -325,9 +325,10 @@ La versión 1.1 del brand board (18 nov 2026) corrige el principio 3 (RN-45, S17
 - **DD-06.** El mensaje de éxito nombra lo que se logró y el siguiente paso, con fecha y hora.
 
 ## 11. Uso de IA
-**Herramienta Usada:** Claude Code
+**Herramienta usada:** Claude Code
 
 ### Avance 1
-- **PRD:** Se uso Claude para comparar las decisiones hechas en el PRD con lo establecido en las reuniones con el cliente. Se permitio que edite el archivo para asegurar que todo coincida, se le informo que decisiones del cliente tienen absoluta prioridad y si algo en el PRD contradice al cliente se lo debe cambiar para coincidir con las decisiones del cliente. Se uso para asegurar que el PRD y los documentos de diseño coincidan. Tambien se uso Claude para questionar el PRD despues de cambios, donde se encontraron algunas contradicciones internas. Se le permitio editar para resolver estas contradicciones, recordandole que lo que dice el cliente manda en cualquier punto de conflicto. 
-- **brand-board-cocoa:** Se uso Claude para leer el brand-board y asegurar que coincida con el PRD y DESIGN.md. Se creo una version HTML del brand-board para poder actualizarlo de manera mas eficiente durante el proceso de chequeos de coincidencia. 
-- **DESIGN.md:** Se uso Claude para borrar la informacion de DESIGN.md del Invernadero Encantado, dejando solo una plantilla del documento. Tambien se uso Claude para asegurar que todas las decisiones n DESIGN.md sean seguibles a algo establecido en el brand-board y el PRD.
+- **PRD:** Se usó Claude para comparar las decisiones hechas en el PRD con lo establecido en las reuniones con el cliente. Se permitió que edite el archivo para asegurar que todo coincida, y se le informó que las decisiones del cliente tienen absoluta prioridad y que, si algo en el PRD contradice al cliente, se lo debe cambiar para coincidir con las decisiones del cliente. Se usó para asegurar que el PRD y los documentos de diseño coincidan. También se usó Claude para cuestionar el PRD después de los cambios, y se encontraron algunas contradicciones internas. Se le permitió editar para resolver estas contradicciones, recordándole que lo que dice el cliente manda en cualquier punto de conflicto.
+- **brand-board-cocoa:** Se usó Claude para leer el brand board y asegurar que coincida con el PRD y DESIGN.md. Se creó una versión HTML del brand board para poder actualizarlo de manera más eficiente durante el proceso de chequeos de coincidencia.
+- **DESIGN.md:** Se usó Claude para borrar la información de DESIGN.md del Invernadero Encantado, dejando solo una plantilla del documento. También se usó Claude para asegurar que todas las decisiones en DESIGN.md sean trazables a algo establecido en el brand board y el PRD. Se le permitió editar para asegurar esto.
+- **Ortografía:** Se usó Claude para revisar la ortografía del PRD, DESIGN.md y el brand board (PDF y HTML).
