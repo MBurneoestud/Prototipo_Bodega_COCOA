@@ -1,7 +1,7 @@
 # PRD: plataforma de reservas de la bodega COCOA (USFQ)
 
-**Versión:** 1.0
-**Fecha:** 17 de noviembre de 2026
+**Versión:** 1.1
+**Fecha:** 17 de noviembre de 2026 (1.1: 18 nov 2026, se agrega la sección 10, decisiones de diseño)
 **Fuentes:** [Resumen Preguntas PF WEB3](../../Resumen%20Preguntas%20PF%20WEB3.md) (reunión de requisitos del 11 nov 2026) y [diagnóstico](../diagnostico.md). Si se contradicen, manda el resumen de la reunión del 11 nov.
 **Próximo hito:** primer avance del prototipo, 2 de diciembre de 2026
 
@@ -275,3 +275,16 @@ El cliente sabrá que el sistema funciona cuando, en la demo:
 - **Imágenes:** dependen de que el cliente pueda exportarlas; el plan B son imágenes de referencia.
 - **Identidad visual:** falta que el cliente entregue el logo COCOA.
 - **TI de la USFQ:** el login con Microsoft, preferido por el cliente, puede requerir el tenant ID y el consentimiento de TI. Si TI no responde a tiempo, la alternativa de invitación funciona sin TI. Un remitente o subdominio de la USFQ mejoraría la llegada de los correos, pero es opcional.
+
+---
+
+## 10. Decisiones de diseño
+
+La identidad visual y casi todas las reglas de diseño se definen en el [brand board v1.0](../diseno/brand-board-cocoa.pdf) y se aplican en [DESIGN.md](../../DESIGN.md). Esta sección registra solo las decisiones de diseño del equipo que **no están en el brand board** ni en las secciones anteriores. DESIGN.md no puede contener ninguna decisión que no esté en el brand board o en este PRD: si se agrega una nueva, se registra aquí en el mismo commit, o se lleva al brand board.
+
+- **DD-01.** El sistema de diseño se aplica a la interfaz del estudiante, al panel admin, a los correos y al PDF de la reserva.
+- **DD-02.** El archivo de tokens `styles/tokens.css` se importa una sola vez, en la entrada de la app.
+- **DD-03.** Nombres de las variables que el brand board no nombra: `--estado-pendiente-fondo`, `--estado-aprobada-fondo`, `--estado-retirada-fondo`, `--estado-cerrada-fondo`, `--fuente-titulos`, `--fuente-texto`, `--texto-pagina-celular`, `--interlineado-titulos` e `--interlineado-texto`.
+- **DD-04.** NEXA se declara con `@font-face` apuntando a `fonts/Nexa-Bold.woff2`, con `font-display: swap`.
+- **DD-05.** El mensaje de carga va en gris de texto secundario y dice qué se está cargando. El botón que envía se deshabilita para evitar envíos dobles.
+- **DD-06.** El mensaje de éxito nombra lo que se logró y el siguiente paso, con fecha y hora.
