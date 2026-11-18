@@ -323,3 +323,11 @@ La versión 1.1 del brand board (18 nov 2026) corrige el principio 3 (RN-45, S17
 - **DD-04.** NEXA se declara con `@font-face` apuntando a `fonts/Nexa-Bold.woff2`, con `font-display: swap`.
 - **DD-05.** El mensaje de carga va en gris de texto secundario y dice qué se está cargando. El botón que envía se deshabilita para evitar envíos dobles.
 - **DD-06.** El mensaje de éxito nombra lo que se logró y el siguiente paso, con fecha y hora.
+
+## 11. Uso de IA
+**Herramienta Usada:** Claude Code
+
+### Avance 1
+- **PRD:** Se uso Claude para comparar las decisiones hechas en el PRD con lo establecido en las reuniones con el cliente. Se permitio que edite el archivo para asegurar que todo coincida, se le informo que decisiones del cliente tienen absoluta prioridad y si algo en el PRD contradice al cliente se lo debe cambiar para coincidir con las decisiones del cliente. Se uso para asegurar que el PRD y los documentos de diseño coincidan. Tambien se uso Claude para questionar el PRD despues de cambios, donde se encontraron algunas contradicciones internas. Se le permitio editar para resolver estas contradicciones, recordandole que lo que dice el cliente manda en cualquier punto de conflicto. 
+- **brand-board-cocoa:** Se uso Claude para leer el brand-board y asegurar que coincida con el PRD y DESIGN.md. Se creo una version HTML del brand-board para poder actualizarlo de manera mas eficiente durante el proceso de chequeos de coincidencia. 
+- **DESIGN.md:** Se uso Claude para borrar la informacion de DESIGN.md del Invernadero Encantado, dejando solo una plantilla del documento. Tambien se uso Claude para asegurar que todas las decisiones n DESIGN.md sean seguibles a algo establecido en el brand-board y el PRD.
