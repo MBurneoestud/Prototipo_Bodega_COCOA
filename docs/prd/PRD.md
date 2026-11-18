@@ -1,8 +1,8 @@
 # PRD: plataforma de reservas de la bodega COCOA (USFQ)
 
-**Versión:** 1.1
-**Fecha:** 17 de noviembre de 2026 (1.1: 18 nov 2026, se agrega la sección 10, decisiones de diseño)
-**Fuentes:** [Resumen Preguntas PF WEB3](../../Resumen%20Preguntas%20PF%20WEB3.md) (reunión de requisitos del 11 nov 2026) y [diagnóstico](../diagnostico.md). Si se contradicen, manda el resumen de la reunión del 11 nov.
+**Versión:** 1.2
+**Fecha:** 17 de noviembre de 2026 (1.1: 18 nov 2026, se agrega la sección 10, decisiones de diseño. 1.2: 18 nov 2026, revisión crítica: se corrigen contradicciones con lo que dijo el cliente, se agregan prioridades al alcance, reglas RN-43 a RN-46 y preguntas S17 a S30)
+**Fuentes:** [Resumen Preguntas PF WEB3](../../Resumen%20Preguntas%20PF%20WEB3.md) (reunión de requisitos del 11 nov 2026) y [diagnóstico](../diagnostico.md). Si se contradicen, manda el resumen de la reunión del 11 nov. Lo que dijo el cliente manda sobre cualquier decisión del equipo, supuesto o regla de este PRD: si una parte del PRD lo contradice, se corrige el PRD.
 **Próximo hito:** primer avance del prototipo, 2 de diciembre de 2026
 
 ---
@@ -75,13 +75,24 @@ Esto es lo que el cliente podrá probar en la presentación final.
 23. El admin marca espacios como "solo admin" para que el estudiante no los pueda reservar.
 24. El sistema importa el catálogo inicial desde el Excel del cliente.
 25. El admin recibe un correo por cada nueva solicitud, cada aprobación y cada cancelación.
-26. El estudiante recibe un correo cuando su reserva se aprueba y otro cuando se rechaza.
-27. Al aprobar, el sistema genera el PDF y el Excel de la reserva y los envía al correo del admin. Tambien envia el PDF al correo de seguridad.
+26. El estudiante recibe un correo cuando su reserva se aprueba, otro cuando se rechaza y otro cuando el admin modifica una reserva ya aprobada.
+27. Al aprobar, el sistema genera el PDF y el Excel de la reserva y los envía al correo del admin. También envía el PDF al correo de seguridad. Si una reserva aprobada se modifica, seguridad recibe el PDF actualizado; si se cancela, recibe un aviso de cancelación.
 28. El estudiante recibe un recordatorio 10 min antes del inicio y un aviso cuando su devolución lleva 30 min de retraso.
 29. El admin recibe cada día un resumen por correo con las reservas del día y las unidades en mantenimiento.
 30. El admin descarga en Excel el reporte semestral de los equipos más rentados.
 31. Todo el sistema, incluido el panel admin, funciona en celular, con el diseño COCOA en negro, rojo y blanco.
 32. La interfaz está en español por defecto y se puede cambiar a inglés.
+
+### Prioridad
+
+Las prioridades salen de la propuesta MoSCoW del [diagnóstico](../diagnostico.md) (sección 3). Este es el orden en que se construye; si el plazo no alcanza, se recorta desde abajo.
+
+| Prioridad | Alcance | Entrega |
+| --- | --- | --- |
+| **Must** | 1 a 10, 14 a 17, 22 a 24, 25 (nueva solicitud), 26 (aprobación y rechazo), 31 | 2 dic 2026 |
+| **Should, entra al 2 dic** | 12, 13, 18; 19, 20 y 27 en forma parcial | 2 dic 2026 |
+| **Should, después** | 21, 25 (aprobación y cancelación), 26 (modificación), 28 a 30, 32 | Avance 3 o presentación final (fechas en S14) |
+| **Sin clasificar** | 11 ("Mis reservas"), que el diagnóstico no prioriza | Ver S29 |
 
 ---
 
@@ -113,7 +124,7 @@ Esto es lo que el cliente podrá probar en la presentación final.
 - **RN-16.** Estados de una reserva: `pendiente` → `aprobada` o `rechazada`; `aprobada` → `retirada` → `devuelta`; `aprobada` → `no retirada`; `pendiente` o `aprobada` → `cancelada`. No se permite ninguna otra transición.
 - **RN-17.** Una reserva pendiente no bloquea los equipos. Dos solicitudes pendientes pueden pedir la misma unidad en el mismo horario.
 - **RN-18.** Al aprobar, el sistema verifica que ninguna unidad de la reserva choque con otra reserva aprobada, contando 30 min de separación antes y después. Si hay choque, no deja aprobar y muestra el conflicto.
-- **RN-19.** Solo el admin puede modificar una reserva: agregar, quitar o cambiar líneas, y cambiar fechas y notas. Puede hacerlo mientras está pendiente o aprobada, antes del retiro. Cada cambio se valida contra la disponibilidad. Si dos solicitudes piden la misma unidad, el admin aprueba la primera y ofrece otra unidad a la segunda.
+- **RN-19.** Solo el admin puede modificar una reserva: agregar, quitar o cambiar líneas, y cambiar fechas y notas. Puede hacerlo mientras está pendiente o aprobada, antes del retiro. Cada cambio se valida contra la disponibilidad. Si dos solicitudes piden la misma unidad, el admin aprueba la primera y le escribe al segundo estudiante, fuera del sistema, para ofrecerle otra unidad; si acepta, el admin modifica la reserva en el sistema.
 - **RN-20.** La aprobación y el rechazo son de la reserva completa, no por línea.
 - **RN-21.** El correo de rechazo no incluye el motivo.
 - **RN-22.** El estudiante puede cancelar una reserva pendiente o aprobada hasta 1 h antes del inicio. Después de ese momento el botón de cancelar no está disponible.
@@ -121,10 +132,12 @@ Esto es lo que el cliente podrá probar en la presentación final.
 - **RN-24.** No hay renovación de reservas.
 - **RN-25.** El estudiante y el admin pueden dejar una nota opcional en la reserva.
 - **RN-26.** Reservar equipos o espacios de la bodega no tiene costo para el estudiante. El sistema no maneja precios, cobros ni pagos.
+- **RN-43.** La verificación de choques de RN-18 se hace de forma atómica en la base de datos. Si los dos admins aprueban a la vez reservas que chocan, solo una se aprueba y la otra muestra el conflicto.
+- **RN-44.** Todas las fechas y horas (franjas, feriados, recordatorios, resumen diario y tareas programadas) se calculan en la hora de Ecuador continental (America/Guayaquil, UTC−5), aunque el servidor y `pg_cron` trabajen en UTC.
 
 ### Catálogo y estados
 
-- **RN-27.** Cada unidad tiene uno de cinco estados: `disponible`, `en uso`, `mantenimiento`, `dañado` o `extraviado`.
+- **RN-27.** Cada unidad tiene uno de cinco estados: `disponible`, `en uso`, `mantenimiento`, `dañado` o `extraviado`. El admin pone a mano `mantenimiento`, `dañado` y `extraviado`, y la devuelve a `disponible`. `En uso` no se pone a mano: el sistema lo calcula mientras la unidad está en una reserva `retirada` que todavía no se marca como `devuelta` (ver RN-45).
 - **RN-28.** El estudiante solo ve tres estados: disponible, en uso y mantenimiento. Las unidades dañadas o extraviadas no aparecen en su catálogo.
 - **RN-29.** Una unidad en mantenimiento se ve con su nota, sin fecha estimada, pero no se puede reservar. El admin la vuelve a dar de alta a mano.
 - **RN-30.** Los equipos con un valor mayor a 500 USD se manejan por unidad numerada.
@@ -132,6 +145,7 @@ Esto es lo que el cliente podrá probar en la presentación final.
 - **RN-32.** Hay unos 7 espacios reservables. Un espacio marcado "solo admin" no se muestra al estudiante.
 - **RN-33.** En los laboratorios, cada computadora es una unidad y el espacio completo se reserva aparte.
 - **RN-34.** Cada producto puede tener hasta 2 fotos.
+- **RN-45.** Una unidad en mantenimiento aparece en el catálogo del estudiante con su nota, en cualquier rango de fechas, pero no se puede agregar al carrito. Las dañadas y extraviadas no aparecen. Cómo se muestran las unidades ocupadas por otra reserva aprobada en el rango elegido queda en S17.
 
 ### Notificaciones
 
@@ -140,6 +154,7 @@ Esto es lo que el cliente podrá probar en la presentación final.
 - **RN-37.** El recordatorio al estudiante se envía 10 min antes del inicio (con un margen de 5 min).
 - **RN-38.** El aviso de retraso se envía a partir de 30 min después del fin de la reserva, si no está marcada como devuelta.
 - **RN-39.** El resumen diario al admin incluye las reservas del día y todas las unidades en mantenimiento.
+- **RN-46.** Si el admin modifica una reserva aprobada, el estudiante recibe un correo con la reserva actualizada y seguridad recibe el PDF nuevo, que reemplaza al anterior. Si una reserva aprobada se cancela, seguridad recibe un aviso de cancelación. Así seguridad nunca trabaja con un PDF desactualizado.
 
 ### Perfil, reportes e idioma
 
@@ -203,9 +218,12 @@ Esto es lo que el cliente podrá probar en la presentación final.
 | 11 nov 2026 | Hosting | Libre, sin lineamientos de TI. Se aceptó la propuesta Supabase + Render. El presupuesto para servicios externos se conversa según el costo. | Sección 9. |
 | 11 nov 2026 | Catálogo inicial | Enviará el Excel del catálogo a más tardar el lunes 16 nov, marcando los espacios solo para profesores y admin y los equipos numerados. Revisará si puede exportar las imágenes y compartirá el logo. | Alcance 24; RN-30, RN-32. |
 
-**Decisión del equipo, pendiente de validar con el cliente** (tomada después del 11 nov):
+**Decisiones del equipo, pendientes de validar con el cliente** (tomadas después del 11 nov). Ninguna contradice lo que dijo el cliente; si al validarlas lo hace, manda el cliente:
 
 - `@usfq.edu.ec` queda solo para las cuentas admin. El cliente confirmó que el lado de usuarios es solo para estudiantes y que los profesores no tienen cuenta.
+- El estado `en uso` lo calcula el sistema a partir de las reservas retiradas, en vez de ponerlo el admin a mano (RN-27), para que no se desincronice.
+- Seguridad recibe el PDF actualizado cuando se modifica una reserva aprobada y un aviso cuando se cancela, y el estudiante recibe un correo cuando el admin modifica su reserva aprobada (RN-46). Responde al objetivo del cliente: que seguridad revise lo que sale sin papel.
+- Choques validados en la base de datos (RN-43) y hora de Ecuador para todo el sistema (RN-44).
 
 ---
 
@@ -229,6 +247,20 @@ Esto es lo que el cliente podrá probar en la presentación final.
 | S14 | ¿Cuáles son las fechas del avance 3 y de la presentación final? | Se toman del calendario del curso cuando se publiquen. |
 | S15 | ¿Quién paga los servicios y a nombre de quién quedan las cuentas? | El prototipo usa planes gratuitos; producción se conversa con el cliente con el presupuesto de la sección 9. |
 | S16 | ¿Es viable el login con la clave del correo institucional (conector de Microsoft en Supabase, restringido a la USFQ)? Es la opción preferida del cliente y el equipo quedó en confirmarlo. | Se prueba primero. Mientras no se confirme, se construye la alternativa que aceptó el cliente: invitación por correo y clave propia. |
+| S17 | Con el rango de fechas elegido, ¿las unidades que ya tienen una reserva aprobada se ocultan ("catálogo filtrado por disponibilidad") o se ven como "en uso" sin poder reservarse? El cliente dijo las dos cosas: que el catálogo se filtra y que el estudiante ve el estado "en uso". | Se ven como "en uso" y no se pueden agregar al carrito, igual que las de mantenimiento. Así se cumplen las dos frases del cliente. |
+| S18 | Si una reserva sigue pendiente cuando llega su hora de inicio, ¿qué pasa? RN-16 no tiene transición para ese caso. | Sigue pendiente; el sistema no la cancela, porque el cliente prefiere liberar a mano. Se resalta en la bandeja del admin y en el resumen diario. |
+| S19 | ¿Puede el admin cancelar una reserva ya aprobada (por ejemplo, si un equipo se daña antes del retiro)? Hoy RN-16 solo deja cancelar al estudiante. | No; el admin modifica o quita líneas (RN-19). Si el cliente lo pide, se agrega la transición `aprobada` → `cancelada` por el admin. |
+| S20 | Las reservas hechas por el admin para un profesor, ¿se aprueban directo? ¿Aplican las reglas de horario y cancelación? ¿Cuentan en el reporte semestral? | Se crean ya aprobadas, cumplen las reglas de horario y choques, cuentan en el reporte y no afectan ningún score. |
+| S21 | Horario especial de las computadoras de la sala de edición (RN-11): ¿qué horas exactas? ¿Incluye fines de semana? ¿Quién entrega y recibe fuera del horario de la bodega? | El horario se configura por ítem o categoría. Si los datos no llegan antes del 2 dic, esas computadoras usan el horario general. |
+| S22 | En la fórmula del score (S4), un día de retraso resta 10 y el bloqueo que provoca resta otros 25, así que el mismo hecho se castiga dos veces. ¿Debe ser así? Además, el cliente decide sobre todo por semestre y experiencia ("primer semestre vs. tesis"), y el score solo mide conducta. ¿Debe incluir eso? | El bloqueo causado por una entrega tardía ya registrada no resta otra vez. El score mide solo conducta, y el semestre se muestra al lado. El cliente valida las dos cosas. |
+| S23 | El semestre que el admin escribe al crear la cuenta (S6) queda desactualizado al semestre siguiente. ¿Cómo se mantiene al día? | El admin lo edita en el perfil, y el perfil muestra cuándo se actualizó por última vez. |
+| S24 | ¿Hace falta Render Starter (7 USD/mes)? Si el frontend es un sitio estático, Render lo aloja gratis y no se duerme. ¿Cuántos correos al mes se esperan? Hace falta para justificar Resend Pro (20 USD/mes). | Se mantiene el presupuesto de la sección 9 hasta definir la arquitectura del frontend y estimar el volumen con P4. |
+| S25 | ¿Hasta qué fecha se espera la confirmación del login con Microsoft (S16) antes de quedarse con la invitación? ¿Qué vía se muestra en el criterio de éxito 1? | El equipo fija una fecha de corte antes del 2 dic. Si no hay confirmación para entonces, la demo usa la invitación y clave propia. |
+| S26 | ¿Hay una cuenta `@estud.usfq.edu.ec` real para probar que los correos llegan a la bandeja de entrada (criterio 8)? Microsoft 365 suele mandar a cuarentena los dominios nuevos. | El equipo prueba con al menos una cuenta real antes de la demo. |
+| S27 | Con dos admins con los mismos permisos, ¿hace falta registrar quién aprobó, rechazó o modificó cada reserva y cuándo? | Sí: cada reserva guarda quién y cuándo hizo cada cambio de estado o modificación, visible para el admin. |
+| S28 | ¿Qué exige la Ley Orgánica de Protección de Datos Personales del Ecuador? El sistema guarda datos de estudiantes y un score que funciona como perfilamiento. ¿Hace falta un aviso de privacidad o un consentimiento? ¿Cuánto tiempo se guardan los datos? | Se muestra un aviso de privacidad al primer ingreso, el score solo lo ve el admin y la retención se define con el cliente. |
+| S29 | ¿Qué prioridad tiene "Mis reservas" (alcance 11)? El diagnóstico no la clasifica. | Must: si el correo de aprobación no llega, es la única forma de que el estudiante sepa el estado de su reserva. |
+| S30 | ¿Qué pasa si se cae el proveedor de correo o se pierden datos? ¿Qué respaldos hay? | Los correos que fallan se reintentan y, si siguen fallando, se le muestran al admin. Se usan los respaldos diarios de Supabase Pro. |
 
 ---
 
@@ -255,11 +287,11 @@ El cliente sabrá que el sistema funciona cuando, en la demo:
 1. Un estudiante con correo `@estud.usfq.edu.ec` dado de alta por el admin entra con la clave de su correo institucional. Si se usa la alternativa, recibe la invitación en su bandeja de entrada (no en spam), crea su clave y entra.
 2. Un intento de crear una cuenta o de entrar con Gmail, o de crear una cuenta de estudiante con `@usfq.edu.ec`, se rechaza.
 3. Un estudiante reserva al menos 3 ítems distintos (una unidad, un kit y un espacio) en una sola solicitud, sin que el carrito se borre.
-4. El catálogo, para un rango de fechas, no muestra unidades ya reservadas en ese rango ni las que están en mantenimiento, dañadas o extraviadas.
+4. El catálogo, para un rango de fechas, no deja agregar al carrito unidades con una reserva aprobada en ese rango (se muestran según S17) ni unidades en mantenimiento, que siguen visibles con su nota. Las unidades dañadas o extraviadas no aparecen.
 5. El sistema no permite elegir horas fuera de 8:30–17:00, horas que no caen en franjas de 30 min, ni fines de semana o feriados.
 6. Al enviar, el estudiante ve que su solicitud está siendo procesada y que debe esperar el correo de aprobación, y el admin recibe el correo en menos de 5 min.
 7. El admin no puede aprobar dos reservas de la misma unidad que se solapen o queden a menos de 30 min.
-8. El admin aprueba una reserva desde el celular y el estudiante y seguridad reciben su correo, este último con el PDF.
+8. El admin aprueba una reserva desde el celular y el estudiante y seguridad reciben su correo, este último con el PDF. El correo de aprobación llega a la bandeja de entrada (no a spam ni a cuarentena) de una cuenta `@estud.usfq.edu.ec` real, porque hoy a muchos estudiantes no les llega.
 9. El estudiante no puede cancelar a menos de 1 h del inicio.
 10. El catálogo real del cliente está cargado desde su Excel.
 11. El costo mensual estimado en producción queda por debajo de 100 USD (estimado actual: unos 53 USD).
@@ -272,6 +304,7 @@ El cliente sabrá que el sistema funciona cuando, en la demo:
 - **Producción:** Supabase Pro (25 USD/mes), Render Starter (7 USD/mes) y un proveedor de correo pagado como Resend Pro (20 USD/mes), más un dominio si TI no da uno (unos 12 USD/año). Los planes gratuitos no sirven en producción: Supabase pausa proyectos inactivos, Render se duerme a los 15 min y Resend Free solo permite 100 correos al día.
 - **Correo:** el SMTP incluido en Supabase solo envía 2 correos por hora, así que desde el prototipo hace falta un SMTP propio con dominio verificado (SPF y DKIM).
 - **Datos existentes:** el catálogo actual tiene 270 ítems y 75 kits, con descripciones duplicadas, kits inconsistentes y categorías desordenadas. Los datos se limpian al importarlos desde el Excel del cliente y se validan con él. No se migra nada de EZRentOut.
+- **Catálogo inicial:** al 18 nov 2026 el cliente todavía no entrega el Excel (lo había prometido para el 16 nov). Se agregará al repositorio cuando llegue. Mientras tanto, la importación (alcance 24) y el criterio de éxito 10 están bloqueados, y el desarrollo usa datos de prueba.
 - **Imágenes:** dependen de que el cliente pueda exportarlas; el plan B son imágenes de referencia.
 - **Identidad visual:** falta que el cliente entregue el logo COCOA.
 - **TI de la USFQ:** el login con Microsoft, preferido por el cliente, puede requerir el tenant ID y el consentimiento de TI. Si TI no responde a tiempo, la alternativa de invitación funciona sin TI. Un remitente o subdominio de la USFQ mejoraría la llegada de los correos, pero es opcional.
@@ -280,7 +313,9 @@ El cliente sabrá que el sistema funciona cuando, en la demo:
 
 ## 10. Decisiones de diseño
 
-La identidad visual y casi todas las reglas de diseño se definen en el [brand board v1.0](../diseno/brand-board-cocoa.pdf) y se aplican en [DESIGN.md](../../DESIGN.md). Esta sección registra solo las decisiones de diseño del equipo que **no están en el brand board** ni en las secciones anteriores. DESIGN.md no puede contener ninguna decisión que no esté en el brand board o en este PRD: si se agrega una nueva, se registra aquí en el mismo commit, o se lleva al brand board.
+La identidad visual y casi todas las reglas de diseño se definen en el [brand board v1.1](../diseno/brand-board-cocoa.pdf) (fuente editable: [brand-board-cocoa.html](../diseno/brand-board-cocoa.html)) y se aplican en [DESIGN.md](../../DESIGN.md). Esta sección registra solo las decisiones de diseño del equipo que **no están en el brand board** ni en las secciones anteriores. DESIGN.md no puede contener ninguna decisión que no esté en el brand board o en este PRD: si se agrega una nueva, se registra aquí en el mismo commit, o se lleva al brand board. Si el brand board contradice a este PRD, manda el PRD (y, sobre los dos, lo que dijo el cliente) hasta que se publique una versión nueva del brand board. Los cambios al brand board se hacen en su HTML y luego se vuelve a exportar el PDF.
+
+La versión 1.1 del brand board (18 nov 2026) corrige el principio 3 (RN-45, S17), lo que recibe seguridad (RN-46), el mensaje de pendiente (alcance 9) y la versión del PRD que cita. Hoy no hay diferencias conocidas entre el brand board y este PRD.
 
 - **DD-01.** El sistema de diseño se aplica a la interfaz del estudiante, al panel admin, a los correos y al PDF de la reserva.
 - **DD-02.** El archivo de tokens `styles/tokens.css` se importa una sola vez, en la entrada de la app.

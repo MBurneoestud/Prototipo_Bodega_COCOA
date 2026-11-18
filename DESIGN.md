@@ -2,7 +2,7 @@
 
 Sistema de diseño y guía de estilo de la plataforma de reservas de la bodega de equipos del COCOA (USFQ). Léelo antes de crear o modificar cualquier pantalla, componente, correo o PDF (DD-01).
 
-**Fuentes:** [brand board v1.0](docs/diseno/brand-board-cocoa.pdf) (nov 2026) y [PRD](docs/prd/PRD.md). Este archivo no contiene decisiones propias: todo sale del brand board o del PRD. Lo poco que no está en el brand board se registra en la [sección 10 del PRD](docs/prd/PRD.md#10-decisiones-de-diseño) con un código `DD-xx`, que se cita aquí. Si este archivo contradice a alguna de las fuentes, mandan las fuentes y este archivo se corrige en el mismo commit; una decisión nueva se agrega primero al brand board o al PRD.
+**Fuentes:** [brand board v1.1](docs/diseno/brand-board-cocoa.pdf) (18 nov 2026; fuente editable en [brand-board-cocoa.html](docs/diseno/brand-board-cocoa.html)) y [PRD](docs/prd/PRD.md). Este archivo no contiene decisiones propias: todo sale del brand board o del PRD. Lo poco que no está en el brand board se registra en la [sección 10 del PRD](docs/prd/PRD.md#10-decisiones-de-diseño) con un código `DD-xx`, que se cita aquí. Si las fuentes se contradicen entre sí, manda el PRD (sección 10). Si este archivo contradice a alguna de las fuentes, mandan las fuentes y este archivo se corrige en el mismo commit; una decisión nueva se agrega primero al brand board o al PRD.
 
 ## Concepto
 
@@ -14,13 +14,13 @@ Todo el equipo que tu proyecto necesita, en una sola reserva clara de principio 
 
 - **Estudiantes** de COCOA que arman su reserva desde el celular, entre clases o en pleno rodaje.
 - **Dos administradores** de la bodega que aprueban, entregan y reciben equipos, casi siempre desde el celular y a veces desde la computadora.
-- **Seguridad** solo ve el PDF de la reserva aprobada.
+- **Seguridad** solo ve, por correo, el PDF de la reserva aprobada, su versión actualizada si el admin la modifica y un aviso si se cancela (RN-46).
 
 ## Principios
 
 1. **El estado de cada reserva siempre visible y siempre con texto.**
 2. **Nada se llama «confirmado» hasta que el admin lo aprueba.**
-3. **Las fechas van primero** y el catálogo solo muestra lo libre en ese rango.
+3. **Las fechas van primero** y en el catálogo solo se puede elegir lo libre en ese rango. Lo ocupado o en mantenimiento se ve, pero no se elige (RN-45, S17).
 4. **Un solo botón primario por pantalla**, y es el único rojo de acción.
 5. **Primero el celular**, también el panel del admin.
 6. **Cada error dice qué pasó y qué hacer.**
@@ -212,7 +212,7 @@ Estas variables van en `styles/tokens.css`, que se importa una sola vez en la en
 | **Tarjeta de equipo** | Foto con fondo neutro, nombre en NEXA mayúsculas, descripción, selector de unidades, botón | Las unidades se eligen **como tallas** (#1, #2…) y la elegida va en negro. Las no disponibles se ven, pero no se eligen y dicen por qué («en uso», «mant.»). El botón nombra la unidad: «Agregar #2 a la reserva» |
 | **Selector de hora** | Cuadrícula de franjas | Franjas de 30 min, formato 24 h, de 08:30 a 17:00. Inicio y fin en negro con su rótulo. Fines de semana y feriados se ven como «cerrado», pero no se eligen |
 | **Mensaje de carga** | Solo texto, en gris de texto secundario (DD-05) | Sin spinners. Dice qué se está cargando (DD-05): «Buscando equipos libres en tus fechas…». El botón que envía se deshabilita y cambia su texto, «Enviando solicitud…», para evitar envíos dobles (DD-05) |
-| **Mensaje de pendiente** | Par de *pendiente*, icono | «Solicitud recibida, pendiente de aprobación. Te llegará un correo cuando la bodega la revise.» |
+| **Mensaje de pendiente** | Par de *pendiente*, icono | Texto del alcance 9 del PRD, que sigue lo que pidió el cliente: «Tu solicitud está siendo procesada. Espera el correo de aprobación.» La etiqueta de estado dice «Pendiente de aprobación» |
 | **Mensaje de éxito** | Par de *aprobada*, icono de visto | Nombra lo que se logró y el siguiente paso, con fecha y hora (DD-06): «Tu reserva de la FS5 #2 y 2 ítems más está aprobada. Retírala el jueves 3 de diciembre desde las 09:00.» |
 | **Mensaje de error** | Fondo `--color-error-fondo`, borde e icono rojos, texto negro | Dice qué pasó y qué hacer: «La FS5 #2 ya no está libre de 10:00 a 13:00. Elige otra unidad o cambia las fechas.» |
 | **Lista vacía** | Texto y una acción secundaria | Siempre ofrece el siguiente paso: «No hay equipos libres de esta categoría en tus fechas.» + «Cambiar fechas» |
@@ -265,7 +265,7 @@ Como un buen encargado de bodega: directo, amable y exacto con horas y unidades.
 
 | Así sí | Así no |
 |---|---|
-| «Solicitud recibida, pendiente de aprobación. Te llegará un correo cuando la bodega la revise.» | «¡Listo! Tu reserva está confirmada.» |
+| «Tu solicitud está siendo procesada. Espera el correo de aprobación.» | «¡Listo! Tu reserva está confirmada.» |
 | «Puedes cancelar hasta las 08:00, una hora antes de que empiece tu reserva.» | «Cancellation not allowed.» |
 | «La FS5 #2 ya no está libre de 10:00 a 13:00. Elige otra unidad.» | «Error: conflicto de disponibilidad.» |
 
@@ -274,7 +274,7 @@ Como un buen encargado de bodega: directo, amable y exacto con horas y unidades.
 | Usamos | Evitamos |
 |---|---|
 | reserva, solicitud | pedido, orden, compra |
-| pendiente de aprobación | confirmada, procesada |
+| pendiente de aprobación | confirmada |
 | retirar, devolver | check-out, check-in |
 | unidad #2 | cantidad: 2 |
 | 17:00 | 5:00 PM |
