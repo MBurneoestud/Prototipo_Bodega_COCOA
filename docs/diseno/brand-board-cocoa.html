@@ -193,7 +193,7 @@ td small { display: block; color: var(--color-texto-secundario); font-size: var(
 
   <header class="cabecera">
     <div>
-      <p class="eyebrow">Brand board · v1.1 · noviembre 2026</p>
+      <p class="eyebrow">Brand board · v1.2 · noviembre 2026</p>
       <h1>Bodega <span>COCOA</span></h1>
       <span class="etiqueta-campo">Concepto</span>
       <p class="concepto">Todo el equipo que tu proyecto necesita, en una sola reserva clara de principio a fin.</p>
@@ -202,7 +202,7 @@ td small { display: block; color: var(--color-texto-secundario); font-size: var(
     </div>
     <div class="contexto">
       <h3>Quién la usa y dónde</h3>
-      <p>Estudiantes de COCOA que arman su reserva desde el celular, entre clases o en pleno rodaje. Dos administradores de la bodega que aprueban, entregan y reciben equipos, casi siempre desde el celular y a veces desde la computadora. Seguridad solo ve, por correo, el PDF de la reserva aprobada, su versión actualizada si el admin la modifica y un aviso si se cancela.</p>
+      <p>Estudiantes de COCOA que arman su reserva desde el celular, entre clases o en pleno rodaje. Dos administradores de la bodega que aprueban, entregan y reciben equipos, casi siempre desde el celular y a veces desde la computadora. Seguridad solo ve, por correo, la reserva aprobada en PDF y Excel, el PDF actualizado si el admin la modifica y un aviso si se cancela.</p>
     </div>
   </header>
 
@@ -403,7 +403,7 @@ td small { display: block; color: var(--color-texto-secundario); font-size: var(
         <li><b>Horarios:</b> siempre 24 h (<code>17:00</code>, nunca <code>5:00 PM</code>), en franjas de 30 min. Rango: <code>jue 3 dic · 09:00 – vie 4 dic · 17:00</code>; si es el mismo día, la fecha una vez: <code>jue 3 dic · 10:00 – 13:00</code>.</li>
         <li><b>Cantidades:</b> no hay cantidades sueltas. Cada unidad con su número («FS5 #2», nunca «cantidad: 2»); dos unidades iguales son dos líneas. El total se cuenta en ítems: «1 ítem», «3 ítems».</li>
         <li><b>Kits y espacios:</b> con su nombre propio, «KIT FS5 FICCIÓN #2» o «Estudio de fotografía».</li>
-        <li><b>Textos:</b> toda la interfaz en español y con los textos aparte del código, para traducirlos después.</li>
+        <li><b>Textos:</b> español por defecto, y toda la página se puede ver en inglés, incluidas las descripciones del catálogo. Los textos van aparte del código.</li>
       </ul></div>
       <div class="tarjeta"><p class="subtitulo" style="margin-bottom:var(--espacio-3)">Estados de una reserva: textos exactos</p>
         <div class="tabla"><table class="tabla-estados"><thead><tr><th>Estado (API)</th><th>En pantalla</th><th>Quién lo ve</th></tr></thead><tbody><tr><td><code>pendiente</code></td><td><span class="etiqueta e-pendiente">Pendiente de aprobación</span><small>en tablas: «Pendiente»</small></td><td>Estudiante y admin</td></tr><tr><td><code>aprobada</code></td><td><span class="etiqueta e-aprobada">Aprobada</span></td><td>Estudiante y admin</td></tr><tr><td><code>rechazada</code></td><td><span class="etiqueta e-error">Rechazada</span></td><td>Estudiante y admin</td></tr><tr><td><code>retirada</code></td><td><span class="etiqueta e-retirada">Retirada</span></td><td>Estudiante y admin</td></tr><tr><td><code>devuelta</code></td><td><span class="etiqueta e-cerrada">Devuelta</span></td><td>Estudiante y admin</td></tr><tr><td><code>no retirada</code></td><td><span class="etiqueta e-error">No retirada</span></td><td>Estudiante y admin</td></tr><tr><td><code>cancelada</code></td><td><span class="etiqueta e-cerrada">Cancelada</span></td><td>Estudiante y admin</td></tr></tbody></table></div>
@@ -451,7 +451,7 @@ td small { display: block; color: var(--color-texto-secundario); font-size: var(
   </section>
 
   <div class="pie">
-    <p>Fuentes: PRD de la plataforma de reservas (v1.2, 18 nov 2026), manual de marca digital de la USFQ (rojo #ED1C24, NEXA y Roboto) y logo oficial COCOA · USFQ. Pendientes: ver la sección anterior.</p>
+    <p>Fuentes: PRD de la plataforma de reservas (v1.4, 23 nov 2026), manual de marca digital de la USFQ (rojo #ED1C24, NEXA y Roboto) y logo oficial COCOA · USFQ. Pendientes: ver la sección anterior.</p>
     <p>Las mismas decisiones, en texto y como variables CSS (<code>styles/tokens.css</code>), están en <code>DESIGN.md</code>, en la raíz del repositorio.</p>
   </div>
 </div>

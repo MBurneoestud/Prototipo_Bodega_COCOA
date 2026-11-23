@@ -2,7 +2,7 @@
 
 Sistema de diseño y guía de estilo de la plataforma de reservas de la bodega de equipos del COCOA (USFQ). Léelo antes de crear o modificar cualquier pantalla, componente, correo o PDF (DD-01).
 
-**Fuentes:** [brand board v1.1](docs/diseno/brand-board-cocoa.pdf) (18 nov 2026; fuente editable en [brand-board-cocoa.html](docs/diseno/brand-board-cocoa.html)) y [PRD](docs/prd/PRD.md). Este archivo no contiene decisiones propias: todo sale del brand board o del PRD. Lo poco que no está en el brand board se registra en la [sección 10 del PRD](docs/prd/PRD.md#10-decisiones-de-diseño) con un código `DD-xx`, que se cita aquí. Si las fuentes se contradicen entre sí, manda el PRD (sección 10). Si este archivo contradice a alguna de las fuentes, mandan las fuentes y este archivo se corrige en el mismo commit; una decisión nueva se agrega primero al brand board o al PRD.
+**Fuentes:** [brand board v1.2](docs/diseno/brand-board-cocoa.pdf) (23 nov 2026; fuente editable en [brand-board-cocoa.html](docs/diseno/brand-board-cocoa.html)) y [PRD](docs/prd/PRD.md). Este archivo no contiene decisiones propias: todo sale del brand board o del PRD. Lo poco que no está en el brand board se registra en la [sección 10 del PRD](docs/prd/PRD.md#10-decisiones-de-diseño) con un código `DD-xx`, que se cita aquí. Si las fuentes se contradicen entre sí, manda el PRD (sección 10). Si este archivo contradice a alguna de las fuentes, mandan las fuentes y este archivo se corrige en el mismo commit; una decisión nueva se agrega primero al brand board o al PRD.
 
 ## Concepto
 
@@ -13,8 +13,9 @@ Todo el equipo que tu proyecto necesita, en una sola reserva clara de principio 
 **Usuarios y contexto:**
 
 - **Estudiantes** de COCOA que arman su reserva desde el celular, entre clases o en pleno rodaje.
-- **Dos administradores** de la bodega que aprueban, entregan y reciben equipos, casi siempre desde el celular y a veces desde la computadora.
-- **Seguridad** solo ve, por correo, el PDF de la reserva aprobada, su versión actualizada si el admin la modifica y un aviso si se cancela (RN-46).
+- **Dos administradores** de la bodega, con los mismos permisos (RN-05), que aprueban, entregan y reciben equipos, casi siempre desde el celular y a veces desde la computadora.
+- **Seguridad** solo ve, por correo, la reserva aprobada en PDF y Excel (RN-36), el PDF actualizado si el admin la modifica y un aviso si se cancela (S39).
+- **Estudiantes de intercambio**, que pueden ver toda la página en inglés (RN-42).
 
 ## Principios
 
@@ -231,9 +232,9 @@ Estas variables van en `styles/tokens.css`, que se importa una sola vez en la en
 
 - Barra superior negra con el logo en negativo, «Panel de la bodega» y la fecha.
 - **Contadores** en píldoras: Pendientes, Hoy, Retiradas, Atrasadas.
-- **Tabla de solicitudes:** estudiante (con semestre e incidencias), ítems, fechas y estado. Los **conflictos se marcan** en la fila con icono y texto («FS5 #2 choca con la reserva de Ana»).
+- **Tabla de solicitudes:** estudiante (con semestre e incidencias), ítems, fechas y estado. Los **conflictos se marcan** en la fila con icono y texto («FS5 #2 choca con la reserva de Ana») (S35).
 - Acciones: primario «Aprobar la de Ana», secundario «Editar unidades», enlace «Rechazar».
-- **En el celular, la tabla pasa a tarjetas:** nombre y semestre con incidencias arriba, etiqueta de estado, ítems, fechas, el conflicto marcado y las acciones debajo. Una solicitud con conflicto no ofrece «Aprobar», porque no se puede aprobar (RN-18): solo «Editar unidades» y «Rechazar».
+- **En el celular, la tabla pasa a tarjetas:** nombre y semestre con incidencias arriba, etiqueta de estado, ítems, fechas, el conflicto marcado y las acciones debajo. Una solicitud con conflicto no ofrece «Aprobar», porque no se puede aprobar (RN-18, S35): solo «Editar unidades» y «Rechazar».
 
 ## Datos y textos
 
@@ -241,7 +242,7 @@ Estas variables van en `styles/tokens.css`, que se importa una sola vez en la en
 - **Horarios:** siempre 24 h (`17:00`, nunca `5:00 PM`), en franjas de 30 min. Rango: `jue 3 dic · 09:00 – vie 4 dic · 17:00`; si es el mismo día, la fecha una vez: `jue 3 dic · 10:00 – 13:00`.
 - **Cantidades:** no hay cantidades sueltas. Cada unidad con su número («FS5 #2», nunca «cantidad: 2»); dos unidades iguales son dos líneas (RN-13). El total se cuenta en ítems: «1 ítem», «3 ítems».
 - **Kits y espacios:** con su nombre propio, «KIT FS5 FICCIÓN #2» o «Estudio de fotografía».
-- **Textos:** toda la interfaz en español y con los textos aparte del código, para traducirlos después.
+- **Textos:** español por defecto, y toda la página se puede ver en inglés: interfaz, políticas, correos y contenido del catálogo, incluidas las descripciones (alcance 32, RN-42). Los textos van aparte del código.
 
 ### Estados de una reserva: textos exactos
 
